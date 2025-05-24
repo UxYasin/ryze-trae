@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react'; // Added useEffect for potential future use
-import './HomeScreen.css';
+import React, { useState, useEffect } from 'react';
+// Removed import './HomeScreen.css';
+import Container from '@mui/material/Container';
+// import Box from '@mui/material/Box'; // Not strictly needed for this step yet
+
 import PostCard from '../components/PostCard';
-import FAB from '../components/FAB'; // Import FAB
-import CreatePostModal from '../components/CreatePostModal'; // Import CreatePostModal
+import FAB from '../components/FAB';
+import CreatePostModal from '../components/CreatePostModal';
 
 // Sample post data with engagement counts
 const samplePostsData = [
@@ -48,15 +51,14 @@ const HomeScreen = () => {
   // }, []);
 
   return (
-    // Use React.Fragment or a div if you need a wrapper that doesn't interfere with layout
-    <> 
-      <div className="home-screen-container">
+    <> {/* Keep React.Fragment as FAB and Modal are outside the main content flow of Container */}
+      <Container maxWidth="sm" sx={{ pt: 2.5 /* Approx 20px if 1 unit = 8px, theme.spacing(2.5) */ }}>
         {posts.map(post => (
           <PostCard key={post.id} post={post} />
         ))}
-      </div>
+      </Container>
       <FAB onClick={handleOpenModal} />
-      <CreatePostModal 
+      <CreatePostModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSubmit={handleCreatePost}

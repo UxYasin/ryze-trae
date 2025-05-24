@@ -11,22 +11,20 @@
   max-width: 700px; /* Max width for the info section */
   margin: 0 auto 30px auto; /* Center section and add bottom margin */
   padding: 20px;
-  background-color: var(--background-color-light); /* Default to light theme background */
-  /* If the card should be distinct from page background in light mode:
-     background-color: #fff; or a specific card variable.
-     For now, assuming it uses the general page background variable.
-  */
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow */
-  /* Theme-awareness for background if it needs to be different from body */
+  /* background-color: var(--background-color-light); Removed, will use MUI paper style */
+  border-radius: 12px; /* Match MUI theme shape.borderRadius */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow, can be replaced by MUI elevation */
+  /* Theme-awareness for background/text will be handled by MUI theme via CssBaseline or specific components. */
+  /* For now, this component is not MUI, so it will inherit from body. */
+  /* If it needs to look like a "card" or "paper", it should be refactored to use <Paper> or <Box sx={{ bgcolor: 'background.paper' }}> */
 }
-body.dark-theme .profile-info-section {
-  background-color: var(--background-color-dark); /* Black background */
-  border: 1px solid #333; /* Add a subtle border in dark mode for separation */
-  /* If using specific variables:
-     background-color: var(--card-background-dark, #2d2d2d); 
-  */
-}
+
+/* body.dark-theme .profile-info-section styles are removed as body classes are no longer used for this.
+   The background of this section will be the page background (e.g. #121212 in dark mode)
+   unless it's refactored to use an MUI Paper/Card component which uses theme.palette.background.paper.
+   The border: 1px solid #333; for dark mode is also removed for now.
+   Text color for children will be inherited from body (e.g. white in dark mode).
+*/
 
 
 .profile-avatar-placeholder {

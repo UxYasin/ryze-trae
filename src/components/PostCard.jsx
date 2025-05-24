@@ -1,90 +1,131 @@
-import React, { useState, useEffect } from 'react'; // Import useState and useEffect
-import './PostCard.css';
+import React, { useState, useEffect } from 'react';
+// Removed import './PostCard.css';
+
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import CardMedia from '@mui/material/CardMedia'; // For image placeholder
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ShareIcon from '@mui/icons-material/Share';
 
 const PostCard = ({ post }) => {
   // Default/placeholder post data if no post prop is provided
   const defaultPost = {
-    id: 'default-post-id', // Add a default ID for logging purposes if post is undefined
-    username: "PlaceholderUser",
-    caption: "This is a placeholder caption. Engage with this post!",
+    id: 'default-post-id',
+    username: "Placeholder User",
+    caption: "This is a placeholder post. It's quite engaging!",
     likes: 0,
     comments: 0,
     shares: 0,
+    // avatarUrl: "", // Can be added if needed
+    // imageUrl: "", // Can be added if needed
   };
 
   const currentPost = post || defaultPost;
+  const { username, caption, likes, comments, shares, id: postId } = currentPost;
 
   // Local state for like count and liked status
-  const [likeCount, setLikeCount] = useState(currentPost.likes !== undefined ? currentPost.likes : 0);
+  const [likeCount, setLikeCount] = useState(likes !== undefined ? likes : 0);
   const [isLiked, setIsLiked] = useState(false);
 
-  // Effect to reset local state if the post prop changes (e.g., in a list with changing items)
+  // Effect to reset local state if the post prop changes
   useEffect(() => {
-    setLikeCount(currentPost.likes !== undefined ? currentPost.likes : 0);
-    setIsLiked(false); // Reset liked status when post changes
-  }, [currentPost.id, currentPost.likes]); // Depend on post.id and initial likes
+    setLikeCount(likes !== undefined ? likes : 0);
+    setIsLiked(false);
+  }, [postId, likes]); // Depend on postId and initial likes from props
 
-  // Helper to format counts, e.g., "1 Like", "5 Likes"
-  const formatCountText = (count, singular, plural) => {
-    return `${count} ${count === 1 ? singular : plural}`;
+  // Updated formatCountText to only return the count for MUI Typography
+  const formatCountText = (count, labelSingular, labelPlural) => {
+    // The label part can be handled by context or i18n in a real app
+    // For this version, we'll just return the count.
+    // The MUI Typography will handle the label text.
+    return count; 
   };
+  // Simplified version for just the count, label will be static in JSX
+  const getCount = (count) => (count !== undefined ? count : 0);
+
 
   const handleLike = () => {
     const newIsLiked = !isLiked;
     setIsLiked(newIsLiked);
     const newLikeCount = newIsLiked ? likeCount + 1 : likeCount - 1;
     setLikeCount(newLikeCount);
-    console.log(`Toggled like for post ID: ${currentPost.id}, new like count: ${newLikeCount}`);
+    console.log(`Toggled like for post ID: ${postId}, new like count: ${newLikeCount}`);
   };
 
   const handleComment = () => {
-    console.log(`Comment button clicked for post ID: ${currentPost.id}`);
+    console.log(`Comment button clicked for post ID: ${postId}`);
   };
 
   const handleShare = () => {
-    console.log(`Share button clicked for post ID: ${currentPost.id}`);
+    console.log(`Share button clicked for post ID: ${postId}`);
   };
 
   return (
-    <div className="post-card">
-      <div className="post-header">
-        <div className="user-avatar"></div>
-        <span className="username">{currentPost.username}</span>
-      </div>
-      <div className="post-image-placeholder">
-        <span>Post Image</span>
-      </div>
-      <div className="post-actions">
-        <div className="action-item">
-          {/* Add 'liked' class to button if isLiked is true */}
-          <button className={`action-btn like-btn ${isLiked ? 'liked' : ''}`} onClick={handleLike}>
-            <span className="icon-placeholder">{isLiked ? '♥' : '♡'}</span>
-          </button>
-          <span className="action-counter">
-            {formatCountText(likeCount, "Like", "Likes")}
-          </span>
-        </div>
-        <div className="action-item">
-          <button className="action-btn comment-btn" onClick={handleComment}>
-            <span className="icon-placeholder">💬</span>
-          </button>
-          <span className="action-counter">
-            {formatCountText(currentPost.comments !== undefined ? currentPost.comments : 0, "Comment", "Comments")}
-          </span>
-        </div>
-        <div className="action-item">
-          <button className="action-btn share-btn" onClick={handleShare}>
-            <span className="icon-placeholder">↪️</span>
-          </button>
-          <span className="action-counter">
-            {formatCountText(currentPost.shares !== undefined ? currentPost.shares : 0, "Share", "Shares")}
-          </span>
-        </div>
-      </div>
-      <div className="post-caption">
-        <p>{currentPost.caption}</p>
-      </div>
-    </div>
+    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 2 }}> {/* Centered with mx: 'auto' */}
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: 'secondary.main' }} aria-label="recipe">
+            {username ? username.charAt(0).toUpperCase() : 'U'}
+          </Avatar>
+        }
+        title={username || "Unknown User"}
+        subheader="September 14, 2023" // Placeholder timestamp
+      />
+      {/* Optional: Image/Media area */}
+      <CardMedia
+        component="div"
+        sx={{
+          height: 300,
+          backgroundColor: 'grey.300', // Placeholder color
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography variant="caption" color="text.secondary">Post Image Placeholder</Typography>
+      </CardMedia>
+
+      <CardContent>
+        <Typography variant="body2" color="text.secondary">
+          {caption}
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing sx={{ justifyContent: 'space-around', borderTop: '1px solid', borderColor: 'divider' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <IconButton aria-label="add to favorites" onClick={handleLike}>
+            {isLiked ? <FavoriteIcon sx={{ color: 'error.main' }} /> : <FavoriteBorderIcon />}
+          </IconButton>
+          <Typography variant="caption" color="text.secondary">
+            {getCount(likeCount)} Like{getCount(likeCount) !== 1 ? 's' : ''}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <IconButton aria-label="comment" onClick={handleComment}>
+            <ChatBubbleOutlineIcon />
+          </IconButton>
+          <Typography variant="caption" color="text.secondary">
+            {getCount(comments)} Comment{getCount(comments) !== 1 ? 's' : ''}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+          <IconButton aria-label="share" onClick={handleShare}>
+            <ShareIcon />
+          </IconButton>
+          <Typography variant="caption" color="text.secondary">
+            {getCount(shares)} Share{getCount(shares) !== 1 ? 's' : ''}
+          </Typography>
+        </Box>
+      </CardActions>
+    </Card>
   );
 };
 

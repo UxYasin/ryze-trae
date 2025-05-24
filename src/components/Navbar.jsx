@@ -1,75 +1,128 @@
-import React, { useState } from 'react';
-import './Navbar.css';
-import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
+import React from 'react';
+// Removed import './Navbar.css';
+import { useTheme } from '../contexts/ThemeContext';
+
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const Navbar = ({ setCurrentScreen, currentScreen }) => {
-  const { theme, toggleTheme } = useTheme(); // Access theme context
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { themeMode, toggleThemeMode } = useTheme(); // Use themeMode and toggleThemeMode
+  const [mobileOpen, setMobileOpen] = React.useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
+  const handleMobileMenuToggle = () => {
+    setMobileOpen(!mobileOpen);
   };
 
-  const handleNavClick = (screenName) => {
-    setCurrentScreen(screenName);
-    if (isMobileMenuOpen) { // Close mobile menu on navigation
-      setIsMobileMenuOpen(false);
+  const handleNavClick = (screen) => {
+    setCurrentScreen(screen);
+    if (mobileOpen) {
+      handleMobileMenuToggle(); // Close drawer on navigation
     }
   };
 
+  const navItems = [
+    { label: 'Home', screen: 'home' },
+    { label: 'Explore', screen: 'explore' },
+    { label: 'Profile', screen: 'profile' },
+  ];
+
+  const drawer = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={handleMobileMenuToggle} onKeyDown={handleMobileMenuToggle}>
+      <List>
+        {navItems.map((item) => (
+          <ListItem key={item.screen} disablePadding>
+            <ListItemButton 
+              onClick={() => handleNavClick(item.screen)} 
+              sx={{ 
+                fontWeight: currentScreen === item.screen ? 'bold' : 'normal',
+                textAlign: 'center' // Center text in drawer items
+              }}
+            >
+              <ListItemText primary={item.label} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
   return (
-    <nav className="navbar">
-      <div className="navbar-logo">
-        {/* Make logo clickable to navigate home */}
-        <button onClick={() => handleNavClick('home')} className="logo-button">
-          LifeStyleApp
-        </button>
-      </div>
-      <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''} desktop-links`}> {/* Added desktop-links class for clarity */}
-        <li>
-          <button
+    <>
+      <AppBar position="fixed" enableColorOnDark> {/* enableColorOnDark for better dark mode contrast if needed */}
+        <Toolbar>
+          <Typography
+            variant="h6"
+            component="div"
             onClick={() => handleNavClick('home')}
-            className={`nav-button ${currentScreen === 'home' ? 'active' : ''}`}
+            sx={{ flexGrow: 1, cursor: 'pointer' }}
           >
-            Home
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => handleNavClick('explore')}
-            className={`nav-button ${currentScreen === 'explore' ? 'active' : ''}`}
+            LifeStyleApp
+          </Typography>
+
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+            {navItems.map((item) => (
+              <Button
+                key={item.screen}
+                color="inherit"
+                onClick={() => handleNavClick(item.screen)}
+                sx={{ 
+                  fontWeight: currentScreen === item.screen ? 'bold' : 'normal',
+                  borderBottom: currentScreen === item.screen ? '2px solid' : 'none', // Example active style
+                  borderRadius: 0, // Flat bottom border
+                  paddingBottom: '4px', // Adjust padding for border
+                  marginLeft: 2 // Add some margin between buttons
+                }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </Box>
+
+          <IconButton color="inherit" onClick={toggleThemeMode} sx={{ ml: 1 }}> {/* Added margin-left */}
+            {themeMode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleMobileMenuToggle}
+            sx={{ display: { md: 'none' } }} // Show only on small screens (xs, sm)
           >
-            Explore
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={() => handleNavClick('profile')}
-            className={`nav-button ${currentScreen === 'profile' ? 'active' : ''}`}
-          >
-            Profile
-          </button>
-        </li>
-      </ul>
-      <div className="navbar-right-controls"> {/* Group theme toggle and menu icon */}
-        <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme">
-          {theme === 'dark' ? '☀️' : '🌙'}
-        </button>
-        <div className={`menu-icon ${isMobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}>
-          <div className="bar1"></div>
-          <div className="bar2"></div>
-          <div className="bar3"></div>
-        </div>
-      </div>
-      {/* Mobile specific links - shown when menu is open */}
-      {isMobileMenuOpen && (
-         <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''} mobile-links`}>
-          <li><button onClick={() => handleNavClick('home')} className={`nav-button ${currentScreen === 'home' ? 'active' : ''}`}>Home</button></li>
-          <li><button onClick={() => handleNavClick('explore')} className={`nav-button ${currentScreen === 'explore' ? 'active' : ''}`}>Explore</button></li>
-          <li><button onClick={() => handleNavClick('profile')} className={`nav-button ${currentScreen === 'profile' ? 'active' : ''}`}>Profile</button></li>
-        </ul>
-      )}
-    </nav>
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <nav> {/* Added nav element for Drawer as per MUI docs for semantics */}
+        <Drawer
+          anchor="right"
+          open={mobileOpen}
+          onClose={handleMobileMenuToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: 250 },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </nav>
+    </>
   );
 };
 

@@ -1,65 +1,61 @@
-/* Global Resets and Base Styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+/* src/index.css - Cleaned up for MUI compatibility */
 
+/* 
+  MUI's CssBaseline handles:
+  - box-sizing: border-box (for * and ::before/::after)
+  - html margin: 0, body margin: 0
+  - Default font family (if set in theme, which we did in ThemeContext.jsx)
+  - Default background color and text color for body (based on theme mode)
+  - Basic typography smoothing (-webkit-font-smoothing: antialiased, -moz-osx-font-smoothing: grayscale)
+*/
+
+/* 
+  The following global styles from before are now largely handled by CssBaseline 
+  and the MUI theme configuration in ThemeContext.jsx:
+  - Universal box-sizing, margin, padding resets (*)
+  - :root font definitions and color variables for body theming
+  - body font-family, min-height, min-width
+  - body.light-theme / body.dark-theme specific background/text color rules
+*/
+
+/* Retain specific global styles that are not covered by MUI or are intentional overrides/additions. */
+
+/* Custom CSS variables that might still be used by non-MUI components 
+   or for specific custom styling. 
+   Note: --primary-color and --secondary-color are defined in the MUI theme palette.
+   If these are ONLY for MUI, they are not needed here. If used by custom CSS elsewhere, keep.
+   For now, assuming they might be used by custom CSS in components not yet refactored.
+*/
 :root {
-  /* Color Palette CSS Variables */
-  --primary-color: #4CAF50;
-  --secondary-color: #E0E0E0;
-  --background-color-light: #FFFFFF;
-  --text-color-light: #000000;
-  --background-color-dark: #000000;
-  --text-color-dark: #FFFFFF;
-
-  /* Default font and other global settings */
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  --primary-color: #4CAF50; /* Same as MUI theme primary.main */
+  --secondary-color: #E0E0E0; /* Same as MUI theme secondary.main */
+  /* Other global variables not related to MUI theme could go here. */
 }
 
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Cleaner default font stack */
-  min-height: 100vh;
-  /* display: flex; place-items: center; are removed to allow for more flexible layout */
-  min-width: 320px;
-}
 
-/* Theme-based styling */
-body.light-theme {
-  background-color: var(--background-color-light);
-  color: var(--text-color-light);
-}
-
-body.dark-theme {
-  background-color: var(--background-color-dark);
-  color: var(--text-color-dark);
-}
-
-/* Retain some useful existing styles, adjust as needed */
+/* Global styles for anchor tags (if default MUI styling is not preferred everywhere) */
 a {
   font-weight: 500;
-  /* Color will be handled by theme or component-specific styles */
-  /* color: #646cff; */
-  text-decoration: inherit;
+  text-decoration: none; /* MUI Link component handles this better, but for raw <a> */
+  color: var(--primary-color); /* Example: make all links use primary color */
 }
 a:hover {
-  /* color: #535bf2; */
-  filter: brightness(85%); /* Example hover effect, can be themed */
+  text-decoration: underline;
+  /* filter: brightness(85%); */ /* Replaced with underline for more standard link hover */
 }
 
+/* Global H1 style (if default MUI Typography for h1 is not preferred everywhere) */
+/* 
 h1 {
-  font-size: 3.2em;
+  font-size: 3.2em; 
   line-height: 1.1;
-}
+} 
+MUI Typography variants should be preferred for headings.
+*/
 
+
+/* Global button styles for non-MUI buttons or as a base (MUI Button has its own styling) */
+/* 
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -69,47 +65,14 @@ button {
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s, background-color 0.25s;
-  /* background-color: #1a1a1a; Removed to allow theme-based button styling or default browser styles */
 }
-
-/* Example of how buttons could be themed (can be expanded) */
-body.light-theme button {
-  background-color: var(--secondary-color);
-  color: var(--text-color-light);
-  border-color: #ccc; /* Example border */
-}
-body.light-theme button:hover {
-  border-color: var(--primary-color);
-  background-color: #d3d3d3; /* Slightly darker secondary */
-}
-
-body.dark-theme button {
-  background-color: #333; /* Darker background for buttons in dark mode */
-  color: var(--text-color-dark);
-  border-color: #555; /* Example border */
-}
-body.dark-theme button:hover {
-  border-color: var(--primary-color);
-  background-color: #444; /* Slightly lighter button background */
-}
-
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
-
-/* Remove Vite's default color scheme handling as we'll manage it with ThemeContext */
-/*
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
-}
+These styles might conflict with MUI Button. It's generally better to style MUI Buttons
+via the theme or sx prop, and custom buttons specifically.
+For now, commenting out broad button styles to avoid conflicts.
 */
+
+/* Any other truly global utility classes or very specific element styles can remain. */

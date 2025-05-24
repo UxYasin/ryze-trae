@@ -1,13 +1,13 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import './index.css' // Keep this for global non-MUI styles if any
 import App from './App.jsx'
-import { ThemeProvider } from './contexts/ThemeContext.jsx'
+import { CustomThemeProvider } from './contexts/ThemeContext.jsx'; // Import the renamed provider
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <ThemeProvider>
+    <CustomThemeProvider> {/* Use the refactored provider */}
       <App />
-    </ThemeProvider>
+    </CustomThemeProvider>
   </StrictMode>,
 )
