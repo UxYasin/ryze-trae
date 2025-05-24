@@ -1,0 +1,145 @@
+/* General Navbar Styles */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Theme-based background and text colors for Navbar */
+body.light-theme .navbar {
+  background-color: var(--background-color-light);
+  color: var(--text-color-light);
+  border-bottom: 1px solid var(--secondary-color);
+}
+
+body.dark-theme .navbar {
+  background-color: var(--background-color-dark);
+  color: var(--text-color-dark);
+  border-bottom: 1px solid #333; /* Darker border for dark theme */
+}
+
+.navbar-logo a {
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.5rem;
+  /* Ensure logo text color follows theme */
+}
+body.light-theme .navbar-logo a {
+  color: var(--text-color-light);
+}
+body.dark-theme .navbar-logo a {
+  color: var(--text-color-dark);
+}
+.navbar-logo a:hover {
+    color: var(--primary-color);
+}
+
+
+.navbar-links {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li {
+  margin-left: 20px;
+}
+
+.navbar-links li a {
+  text-decoration: none;
+  padding-bottom: 5px; /* Space for the underline */
+  transition: color 0.3s ease;
+}
+
+body.light-theme .navbar-links li a {
+  color: var(--text-color-light);
+}
+body.dark-theme .navbar-links li a {
+  color: var(--text-color-dark);
+}
+
+.navbar-links li a.active {
+  border-bottom: 2px solid var(--primary-color);
+  font-weight: bold;
+}
+
+.navbar-links li a:hover {
+  color: var(--primary-color);
+}
+
+/* Hamburger Menu Icon */
+.menu-icon {
+  display: none; /* Hidden on desktop */
+  cursor: pointer;
+  padding: 10px; /* Easier to click */
+}
+
+.menu-icon div { /* The bars of the hamburger */
+  width: 25px;
+  height: 3px;
+  margin: 5px 0;
+  transition: 0.4s;
+}
+
+body.light-theme .menu-icon div {
+  background-color: var(--text-color-light);
+}
+body.dark-theme .menu-icon div {
+  background-color: var(--text-color-dark);
+}
+
+/* Responsive Styles for Mobile */
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none; /* Hide desktop links */
+    flex-direction: column;
+    width: 100%;
+    position: absolute;
+    top: 60px; /* Adjust based on navbar height, ensure it's below the navbar */
+    left: 0;
+    padding: 1rem 0; /* Padding for mobile menu items */
+    z-index: 999; /* Ensure it's above other content but below navbar if navbar has higher z-index */
+  }
+
+  /* Theming for mobile dropdown menu background */
+  body.light-theme .navbar-links {
+    background-color: var(--background-color-light);
+    border-bottom: 1px solid var(--secondary-color); /* Consistent border */
+  }
+  body.dark-theme .navbar-links {
+    background-color: var(--background-color-dark);
+    border-bottom: 1px solid #333; /* Consistent border */
+  }
+
+  .navbar-links.open {
+    display: flex; /* Show mobile menu when open */
+  }
+
+  .navbar-links li {
+    margin: 10px 0;
+    text-align: center;
+  }
+
+  .menu-icon {
+    display: block; /* Show hamburger icon */
+  }
+}
+
+/* Animation for hamburger icon (when 'open') */
+.menu-icon.open .bar1 {
+  transform: rotate(-45deg) translate(-5px, 6px);
+}
+.menu-icon.open .bar2 {
+  opacity: 0;
+}
+.menu-icon.open .bar3 {
+  transform: rotate(45deg) translate(-5px, -6px);
+}
