@@ -1,0 +1,143 @@
+/* ProfileScreen.css */
+
+.profile-screen-container {
+  padding: 20px;
+  /* text-align: center; Removed to allow for more flexible internal alignment */
+}
+
+.profile-info-section {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  max-width: 700px; /* Max width for the info section */
+  margin: 0 auto 30px auto; /* Center section and add bottom margin */
+  padding: 20px;
+  background-color: var(--background-color-light); /* Default to light theme background */
+  /* If the card should be distinct from page background in light mode:
+     background-color: #fff; or a specific card variable.
+     For now, assuming it uses the general page background variable.
+  */
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* Soft shadow */
+  /* Theme-awareness for background if it needs to be different from body */
+}
+body.dark-theme .profile-info-section {
+  background-color: var(--background-color-dark); /* Black background */
+  border: 1px solid #333; /* Add a subtle border in dark mode for separation */
+  /* If using specific variables:
+     background-color: var(--card-background-dark, #2d2d2d); 
+  */
+}
+
+
+.profile-avatar-placeholder {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: var(--secondary-color); /* Theme-aware placeholder color */
+  margin-right: 20px;
+  flex-shrink: 0; /* Prevent avatar from shrinking */
+}
+
+.profile-text-details {
+  display: flex;
+  flex-direction: column;
+  text-align: left; /* Align text to the left */
+}
+
+.profile-name {
+  font-size: 1.8rem; /* Larger font for name */
+  font-weight: 600;
+  margin-bottom: 8px;
+  /* Color should be inherited from .profile-info-section or body */
+}
+
+.profile-bio {
+  font-size: 1rem;
+  margin-bottom: 12px;
+  color: #555; /* Slightly lighter text for bio, adjust for dark theme */
+}
+body.dark-theme .profile-bio {
+  color: #bbb; /* Lighter bio text for dark theme */
+}
+
+.profile-impression {
+  font-size: 1rem;
+  font-weight: 500; /* Slightly bolder */
+  /* Color can be inherited or specific if needed */
+}
+
+.profile-impression strong {
+  color: var(--primary-color); /* Highlight the percentage with primary color */
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 600px) {
+  .profile-info-section {
+    flex-direction: column; /* Stack avatar and text vertically */
+    align-items: center; /* Center items when stacked */
+    text-align: center; /* Center text when stacked */
+  }
+
+  .profile-avatar-placeholder {
+    margin-right: 0; /* Remove right margin */
+    margin-bottom: 15px; /* Add bottom margin */
+  }
+
+  .profile-text-details {
+    align-items: center; /* Center text details when stacked */
+    text-align: center;
+  }
+}
+
+/* User Posts Grid Styles */
+.profile-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Default to 3 columns */
+  gap: 10px; /* Space between grid items */
+  max-width: 700px; /* Match profile-info-section width or adjust as needed */
+  margin: 0 auto; /* Center the grid */
+}
+
+.profile-post-item {
+  aspect-ratio: 1 / 1; /* Make items square */
+  background-color: var(--secondary-color); /* Theme-aware placeholder background */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px; /* Rounded corners */
+  /* Optional: Add a subtle shadow if desired
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); 
+  */
+  /* Ensure text inside is legible */
+  color: #555; /* Default text color for placeholder content */
+  font-size: 0.9rem;
+}
+body.dark-theme .profile-post-item {
+  color: #bbb; /* Lighter text for dark theme */
+  /* If --secondary-color becomes too dark in dark theme, adjust background or text more:
+     background-color: #3a3a3a; 
+  */
+}
+
+
+/* Responsive adjustments for the grid columns */
+@media (max-width: 768px) { /* Tablet size */
+  .profile-posts-grid {
+    /* max-width can be adjusted for tablets, or keep it same as desktop */
+    gap: 8px; /* Slightly reduce gap */
+  }
+}
+
+@media (max-width: 480px) { /* Mobile size */
+  .profile-posts-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for smaller mobiles */
+    gap: 5px; /* Further reduce gap */
+    /* Potentially make max-width: 100%; if side padding is handled by .profile-screen-container */
+  }
+}
+
+@media (max-width: 320px) { /* Very small mobiles, less common */
+    .profile-posts-grid {
+        grid-template-columns: repeat(1, 1fr); /* 1 column if needed */
+    }
+}

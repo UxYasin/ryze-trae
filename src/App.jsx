@@ -1,40 +1,47 @@
-import React from 'react'; // Removed useState
+import React, { useState } from 'react'; // Import useState
 import './App.css'
 import { useTheme } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import HomeScreen from './screens/HomeScreen';
-// FAB and CreatePostModal are no longer imported here
+import ProfileScreen from './screens/ProfileScreen'; // Import ProfileScreen
 
 function App() {
   const { theme, toggleTheme } = useTheme();
   const navbarHeight = '60px'; // Approximation for fixed navbar
+  const [currentScreen, setCurrentScreen] = useState('home'); // State for current screen
 
-  // Removed isModalOpen state and handlers (handleFabClick, handleCloseModal, handleSubmitPost)
+  // The header section with app title and theme toggle can be part of the App layout
+  // or moved into individual screens if different screens need different headers.
+  // For now, keeping it global here.
+  const appHeader = (
+    <div style={{ 
+        display: 'flex', 
+        justifyContent: 'space-between', 
+        alignItems: 'center', 
+        marginBottom: '20px',
+        paddingLeft: '20px',
+        paddingRight: '20px',
+        paddingTop: '20px'
+      }}>
+      <h1 style={{ margin: 0 }}>LifeStyle App</h1> 
+      <button onClick={toggleTheme}>
+        Toggle Theme ({theme})
+      </button>
+    </div>
+  );
 
   return (
     <div className="app-container" style={{ paddingTop: navbarHeight }}>
-      <Navbar />
+      <Navbar setCurrentScreen={setCurrentScreen} currentScreen={currentScreen} />
       
       <main> 
-        <div style={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center', 
-            marginBottom: '20px',
-            paddingLeft: '20px',
-            paddingRight: '20px',
-            paddingTop: '20px'
-          }}>
-          <h1 style={{ margin: 0 }}>LifeStyle App</h1> 
-          <button onClick={toggleTheme}>
-            Toggle Theme ({theme})
-          </button>
-        </div>
+        {appHeader} {/* Render the common app header */}
         
-        <HomeScreen /> {/* HomeScreen now manages its own FAB and Modal */}
+        {/* Conditionally render screens */}
+        {currentScreen === 'home' && <HomeScreen />}
+        {currentScreen === 'profile' && <ProfileScreen />}
+        {/* Add other screens here as needed, e.g., for 'explore' */}
       </main>
-
-      {/* FAB and CreatePostModal rendering removed from here */}
     </div>
   )
 }
