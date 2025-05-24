@@ -90,11 +90,41 @@ body.dark-theme .nav-button {
   color: var(--primary-color);
 }
 
+/* Right-side controls (Theme Toggle and Menu Icon) */
+.navbar-right-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Space between theme toggle and menu icon */
+}
+
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+  font-size: 1.5rem; /* Adjust for emoji icon size */
+  line-height: 1; /* Ensure consistent height */
+  border-radius: 4px; /* For hover effect consistency */
+  transition: background-color 0.2s ease;
+}
+body.light-theme .theme-toggle-btn {
+  color: var(--text-color-light);
+}
+body.dark-theme .theme-toggle-btn {
+  color: var(--text-color-dark);
+}
+.theme-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+
 /* Hamburger Menu Icon */
 .menu-icon {
   display: none; /* Hidden on desktop */
   cursor: pointer;
   padding: 10px; /* Easier to click */
+  /* Ensure it aligns well with theme toggle button if padding differs */
+  /* display: flex; align-items: center; justify-content: center; */ /* If needed for precise alignment */
 }
 
 .menu-icon div { /* The bars of the hamburger */
@@ -113,38 +143,42 @@ body.dark-theme .menu-icon div {
 
 /* Responsive Styles for Mobile */
 @media (max-width: 768px) {
-  .navbar-links {
-    display: none; /* Hide desktop links */
+  .navbar-links.desktop-links { /* Specifically hide desktop links */
+    display: none;
+  }
+  .navbar-links.mobile-links { /* Styles for the mobile dropdown menu */
+    display: none; /* Hidden by default, shown when 'open' class is added */
     flex-direction: column;
     width: 100%;
     position: absolute;
-    top: 60px; /* Adjust based on navbar height, ensure it's below the navbar */
+    top: 60px; /* Adjust based on navbar height */
     left: 0;
-    padding: 1rem 0; /* Padding for mobile menu items */
-    z-index: 999; /* Ensure it's above other content but below navbar if navbar has higher z-index */
+    padding: 1rem 0;
+    z-index: 1010; /* Higher than navbar (1000), but lower than modal (2000) */
+    /* Themeing for mobile dropdown menu background */
   }
-
-  /* Theming for mobile dropdown menu background */
-  body.light-theme .navbar-links {
+  body.light-theme .navbar-links.mobile-links {
     background-color: var(--background-color-light);
-    border-bottom: 1px solid var(--secondary-color); /* Consistent border */
+    border-bottom: 1px solid var(--secondary-color);
   }
-  body.dark-theme .navbar-links {
+  body.dark-theme .navbar-links.mobile-links {
     background-color: var(--background-color-dark);
-    border-bottom: 1px solid #333; /* Consistent border */
+    border-bottom: 1px solid #333;
   }
 
-  .navbar-links.open {
-    display: flex; /* Show mobile menu when open */
+  .navbar-links.mobile-links.open { /* Ensure this selector is specific enough */
+    display: flex;
   }
 
-  .navbar-links li {
+  .navbar-links.mobile-links li {
     margin: 10px 0;
     text-align: center;
   }
-
-  .menu-icon {
-    display: block; /* Show hamburger icon */
+  
+  /* Ensure .navbar-right-controls (which includes menu-icon) is always visible */
+  /* .menu-icon itself is handled by its own display property below */
+  .menu-icon { /* Show hamburger icon on mobile */
+    display: block; 
   }
 }
 

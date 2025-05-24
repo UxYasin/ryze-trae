@@ -4,10 +4,10 @@ import { useTheme } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import HomeScreen from './screens/HomeScreen';
 import ProfileScreen from './screens/ProfileScreen';
-import ExploreScreen from './screens/ExploreScreen'; // Import ExploreScreen
+import ExploreScreen from './screens/ExploreScreen';
 
 function App() {
-  const { theme, toggleTheme } = useTheme();
+  // const { theme, toggleTheme } = useTheme(); // No longer needed here if App itself doesn't toggle
   const navbarHeight = '60px'; // Approximation for fixed navbar
   const [currentScreen, setCurrentScreen] = useState('home'); // State for current screen
 
@@ -25,9 +25,7 @@ function App() {
         paddingTop: '20px'
       }}>
       <h1 style={{ margin: 0 }}>LifeStyle App</h1> 
-      <button onClick={toggleTheme}>
-        Toggle Theme ({theme})
-      </button>
+      {/* Old theme toggle button removed from here */}
     </div>
   );
 

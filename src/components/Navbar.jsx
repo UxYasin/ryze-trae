@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './Navbar.css';
+import { useTheme } from '../contexts/ThemeContext'; // Import useTheme
 
-const Navbar = ({ setCurrentScreen, currentScreen }) => { // Accept props
+const Navbar = ({ setCurrentScreen, currentScreen }) => {
+  const { theme, toggleTheme } = useTheme(); // Access theme context
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -23,30 +25,25 @@ const Navbar = ({ setCurrentScreen, currentScreen }) => { // Accept props
           LifeStyleApp
         </button>
       </div>
-      <div className={`menu-icon ${isMobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}>
-        <div className="bar1"></div>
-        <div className="bar2"></div>
-        <div className="bar3"></div>
-      </div>
-      <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''}`}>
+      <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''} desktop-links`}> {/* Added desktop-links class for clarity */}
         <li>
-          <button 
-            onClick={() => handleNavClick('home')} 
+          <button
+            onClick={() => handleNavClick('home')}
             className={`nav-button ${currentScreen === 'home' ? 'active' : ''}`}
           >
             Home
           </button>
         </li>
         <li>
-          <button 
-            onClick={() => handleNavClick('explore')} 
+          <button
+            onClick={() => handleNavClick('explore')}
             className={`nav-button ${currentScreen === 'explore' ? 'active' : ''}`}
           >
             Explore
           </button>
         </li>
         <li>
-          <button 
+          <button
             onClick={() => handleNavClick('profile')}
             className={`nav-button ${currentScreen === 'profile' ? 'active' : ''}`}
           >
@@ -54,6 +51,24 @@ const Navbar = ({ setCurrentScreen, currentScreen }) => { // Accept props
           </button>
         </li>
       </ul>
+      <div className="navbar-right-controls"> {/* Group theme toggle and menu icon */}
+        <button onClick={toggleTheme} className="theme-toggle-btn" aria-label="Toggle theme">
+          {theme === 'dark' ? '☀️' : '🌙'}
+        </button>
+        <div className={`menu-icon ${isMobileMenuOpen ? 'open' : ''}`} onClick={toggleMobileMenu}>
+          <div className="bar1"></div>
+          <div className="bar2"></div>
+          <div className="bar3"></div>
+        </div>
+      </div>
+      {/* Mobile specific links - shown when menu is open */}
+      {isMobileMenuOpen && (
+         <ul className={`navbar-links ${isMobileMenuOpen ? 'open' : ''} mobile-links`}>
+          <li><button onClick={() => handleNavClick('home')} className={`nav-button ${currentScreen === 'home' ? 'active' : ''}`}>Home</button></li>
+          <li><button onClick={() => handleNavClick('explore')} className={`nav-button ${currentScreen === 'explore' ? 'active' : ''}`}>Explore</button></li>
+          <li><button onClick={() => handleNavClick('profile')} className={`nav-button ${currentScreen === 'profile' ? 'active' : ''}`}>Profile</button></li>
+        </ul>
+      )}
     </nav>
   );
 };
