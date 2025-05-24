@@ -1,0 +1,38 @@
+/* ExploreScreen.css */
+
+.explore-screen-container {
+  padding: 16px; /* Padding for the overall screen */
+  /* text-align: center; Removed, grid will handle alignment */
+}
+
+.explore-grid {
+  display: grid;
+  /* Responsive columns:
+     - auto-fill: creates as many columns as can fit
+     - minmax(200px, 1fr): each column is at least 200px wide, 
+       and they share extra space (1fr)
+     Adjust 200px based on desired minimum item size.
+  */
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 16px; /* Space between grid items */
+}
+
+/* Optional: If you want to ensure the container doesn't get too wide on large screens */
+/*
+.explore-screen-container {
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+*/
+
+/* Responsive adjustments for very small screens if minmax isn't enough */
+@media (max-width: 480px) {
+  .explore-grid {
+    /* Adjust minmax if items become too small, or switch to 2 columns */
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px; /* Slightly reduce gap for smaller screens */
+  }
+  .explore-screen-container {
+    padding: 10px; /* Reduce padding for smaller screens */
+  }
+}

@@ -1,0 +1,64 @@
+/* ExplorePostItem.css */
+
+.explore-post-item {
+  background-color: #fff; /* White background */
+  color: #000; /* Black text */
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Soft shadow */
+  overflow: hidden; /* Ensure content stays within rounded corners */
+  display: flex;
+  flex-direction: column; /* Stack thumbnail and details vertically */
+}
+
+.explore-post-thumbnail {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Square thumbnail */
+  background-color: var(--secondary-color); /* Placeholder if no image */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Optional: if you want to show text like "Thumbnail" */
+  /* color: #555; 
+     font-size: 0.9rem; 
+  */
+}
+
+.explore-post-details {
+  padding: 8px;
+}
+
+.explore-post-username {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 0.95rem; /* Slightly smaller than main username displays if any */
+  /* Text color will be inherited from .explore-post-item (#000) */
+}
+
+.explore-post-caption {
+  font-size: 0.85rem; /* Slightly smaller than username */
+  color: #555; /* Slightly muted color for caption */
+  /* Basic text truncation for 2 lines (optional, enable if needed) */
+  /*
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.4; 
+  max-height: calc(1.4em * 2); 
+  */
+}
+
+/* Theme awareness for the card itself if it needs to change in dark mode.
+   Currently, it's fixed white/black text. If it should adapt:
+*/
+/*
+body.dark-theme .explore-post-item {
+  background-color: var(--background-color-dark); // Or a specific dark card background
+  color: var(--text-color-dark);
+}
+
+body.dark-theme .explore-post-caption {
+  color: #bbb; // Lighter caption for dark background
+}
+*/

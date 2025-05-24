@@ -39,8 +39,8 @@ const Navbar = ({ setCurrentScreen, currentScreen }) => { // Accept props
         </li>
         <li>
           <button 
-            onClick={() => console.log('Explore clicked (no screen yet)')} 
-            className={`nav-button ${currentScreen === 'explore' ? 'active' : ''}`} // For future 'explore' screen
+            onClick={() => handleNavClick('explore')} 
+            className={`nav-button ${currentScreen === 'explore' ? 'active' : ''}`}
           >
             Explore
           </button>

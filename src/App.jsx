@@ -1,9 +1,10 @@
-import React, { useState } from 'react'; // Import useState
+import React, { useState } from 'react';
 import './App.css'
 import { useTheme } from './contexts/ThemeContext';
 import Navbar from './components/Navbar';
 import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen'; // Import ProfileScreen
+import ProfileScreen from './screens/ProfileScreen';
+import ExploreScreen from './screens/ExploreScreen'; // Import ExploreScreen
 
 function App() {
   const { theme, toggleTheme } = useTheme();
@@ -40,7 +41,7 @@ function App() {
         {/* Conditionally render screens */}
         {currentScreen === 'home' && <HomeScreen />}
         {currentScreen === 'profile' && <ProfileScreen />}
-        {/* Add other screens here as needed, e.g., for 'explore' */}
+        {currentScreen === 'explore' && <ExploreScreen />}
       </main>
     </div>
   )
