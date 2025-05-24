@@ -1,41 +1,36 @@
 import './App.css'
 import { useTheme } from './contexts/ThemeContext';
-import Navbar from './components/Navbar'; // Import the Navbar component
+import Navbar from './components/Navbar';
+import HomeScreen from './screens/HomeScreen'; // Import HomeScreen
 
 function App() {
   const { theme, toggleTheme } = useTheme();
-
-  // Estimate Navbar height for padding-top. Adjust if necessary.
-  // This is a common way to handle fixed navbars.
-  // A more dynamic way might involve JS or CSS variables if navbar height changes.
-  const navbarHeight = '60px'; // Approximation, should match Navbar's actual height
+  const navbarHeight = '60px'; // Approximation for fixed navbar
 
   return (
-    // Add a class for easier global styling if needed, e.g., for padding
     <div className="app-container" style={{ paddingTop: navbarHeight }}>
       <Navbar />
       
-      <main style={{ padding: '20px' }}> {/* Add padding to main content area */}
-        <h1>LifeStyle App</h1>
-        <p>Current Theme: {theme}</p>
-        <button onClick={toggleTheme} style={{ marginBottom: '20px' }}>
-          Toggle Theme
-        </button>
-
-        <section style={{ marginTop: '20px', padding: '10px', border: '1px solid var(--secondary-color)' }}>
-          <h2>Sample Content Section</h2>
-          <p>
-            This is some sample content to demonstrate the theme. The background and text colors should change
-            when you toggle the theme. Links and buttons should also reflect theme changes if styled accordingly.
-          </p>
-          <a href="#">Sample Link</a>
-          <button style={{ marginLeft: '10px' }}>Sample Button</button>
-        </section>
-
-        {/* Add more content to test scrolling with fixed navbar */}
-        <div style={{ height: '1000px', backgroundColor: 'var(--secondary-color)', marginTop: '20px', padding: '10px' }}>
-          Scrollable Content Area
+      {/* The main content area. Padding is removed from here and will be handled 
+          by individual screen components like HomeScreen if needed. */}
+      <main> 
+        <div style={{ 
+            display: 'flex', 
+            justifyContent: 'space-between', 
+            alignItems: 'center', 
+            marginBottom: '20px',
+            paddingLeft: '20px', /* Add padding here for elements directly in main but outside HomeScreen */
+            paddingRight: '20px',
+            paddingTop: '20px' /* Add top padding for this header section */
+          }}>
+          <h1 style={{ margin: 0 }}>LifeStyle App</h1> 
+          <button onClick={toggleTheme}>
+            Toggle Theme ({theme})
+          </button>
         </div>
+        
+        {/* Render the HomeScreen which will contain the feed */}
+        <HomeScreen />
       </main>
     </div>
   )

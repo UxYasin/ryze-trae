@@ -1,0 +1,18 @@
+/* HomeScreen.css */
+
+.home-screen-container {
+  max-width: 600px; /* Constrains the width of the feed */
+  margin: 0 auto;   /* Centers the feed on the page */
+  padding-top: 20px; /* Specific top padding for the home screen content area */
+  /* padding-bottom: 20px; /* Optional: if extra space is needed at the bottom of the feed */
+}
+
+/* 
+  PostCard components should ideally have their own bottom margin for spacing.
+  If additional spacing is needed between cards specifically within HomeScreen,
+  it could be added like this:
+  .home-screen-container > .post-card { // Or whatever the root element of PostCard is
+    margin-bottom: 20px; 
+  }
+  However, PostCard.css already defines margin-bottom for .post-card, so this is likely not needed.
+*/

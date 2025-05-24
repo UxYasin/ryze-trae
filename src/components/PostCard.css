@@ -1,0 +1,95 @@
+/* PostCard.css */
+
+.post-card {
+  /* Forcing white background and black text as per explicit requirement,
+     but could use theme variables for more flexibility:
+     background-color: var(--background-color-light);
+     color: var(--text-color-light); 
+     or specific post card theme variables like:
+     background-color: var(--post-background, #fff);
+     color: var(--post-text-color, #000);
+  */
+  background-color: #fff; 
+  color: #000;
+  border: 1px solid var(--secondary-color); /* Added subtle border for better separation */
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  max-width: 600px; /* Optional: constrain width for typical feed appearance */
+  margin-left: auto; /* Optional: center if in a wider container */
+  margin-right: auto; /* Optional: center if in a wider container */
+}
+
+.post-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--secondary-color); /* Uses theme variable */
+  margin-right: 10px;
+  /* In a real app, this would be an <img> tag */
+}
+
+.username {
+  font-weight: bold;
+}
+
+.post-image-placeholder {
+  width: 100%;
+  height: 300px; /* Can be adjusted or made responsive */
+  background-color: var(--secondary-color); /* Uses theme variable */
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-color-light); /* Text color for placeholder content */
+  font-style: italic;
+  border-radius: 4px; /* Slight rounding for the placeholder itself */
+}
+/* Adjust text color if secondary-color is light and text-color-light is also light */
+body.light-theme .post-image-placeholder {
+    color: #555; /* Darker text on light secondary color for better contrast */
+}
+body.dark-theme .post-image-placeholder {
+    /* Assuming secondary-color in dark theme might be a mid-gray, 
+       text-color-dark (white) might be fine. Adjust if needed. */
+    color: var(--text-color-dark); 
+}
+
+
+.post-actions {
+  margin-bottom: 10px;
+}
+
+.post-actions button {
+  padding: 8px 12px;
+  border: 1px solid var(--primary-color); /* Uses theme variable */
+  background-color: transparent;
+  color: var(--primary-color); /* Uses theme variable */
+  cursor: pointer;
+  border-radius: 4px;
+  margin-right: 8px;
+  font-weight: 500;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.post-actions button:hover {
+  background-color: var(--primary-color);
+  color: #fff; /* White text on primary color background */
+}
+
+.post-actions button:active {
+  background-color: color-mix(in srgb, var(--primary-color) 80%, black); /* Darken primary color */
+  border-color: color-mix(in srgb, var(--primary-color) 80%, black);
+}
+
+.post-caption {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
