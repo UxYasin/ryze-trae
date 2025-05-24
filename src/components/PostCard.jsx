@@ -58,7 +58,7 @@ const PostCard = ({ post }) => {
         <div className="action-item">
           {/* Add 'liked' class to button if isLiked is true */}
           <button className={`action-btn like-btn ${isLiked ? 'liked' : ''}`} onClick={handleLike}>
-            <span className="icon-placeholder">{isLiked ? '[♥]' : '[L]'}</span> Like
+            <span className="icon-placeholder">{isLiked ? '♥' : '♡'}</span>
           </button>
           <span className="action-counter">
             {formatCountText(likeCount, "Like", "Likes")}
@@ -66,7 +66,7 @@ const PostCard = ({ post }) => {
         </div>
         <div className="action-item">
           <button className="action-btn comment-btn" onClick={handleComment}>
-            <span className="icon-placeholder">[C]</span> Comment
+            <span className="icon-placeholder">💬</span>
           </button>
           <span className="action-counter">
             {formatCountText(currentPost.comments !== undefined ? currentPost.comments : 0, "Comment", "Comments")}
@@ -74,7 +74,7 @@ const PostCard = ({ post }) => {
         </div>
         <div className="action-item">
           <button className="action-btn share-btn" onClick={handleShare}>
-            <span className="icon-placeholder">[S]</span> Share
+            <span className="icon-placeholder">↪️</span>
           </button>
           <span className="action-counter">
             {formatCountText(currentPost.shares !== undefined ? currentPost.shares : 0, "Share", "Shares")}

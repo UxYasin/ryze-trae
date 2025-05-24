@@ -83,16 +83,19 @@ body.dark-theme .post-image-placeholder {
 .action-btn {
   display: flex;
   align-items: center;
-  gap: 6px; /* Space between icon placeholder and text */
-  padding: 6px 10px; /* Adjust padding for new structure */
-  border: none; /* Remove default border, rely on text/icon color for visual */
+  justify-content: center; /* Center the icon placeholder */
+  gap: 0; /* Remove gap as there's no text label now */
+  padding: 8px; /* Make padding equal for a more square/circular button */
+  /* Consider adding fixed width/height if a consistent circular shape is desired with border-radius: 50% */
+  /* e.g., width: 36px; height: 36px; */
+  border: none;
   background-color: transparent;
-  color: var(--primary-color); /* Green text */
+  color: var(--primary-color); /* This color is for text, icon placeholder has its own */
   cursor: pointer;
-  border-radius: 4px;
-  font-weight: 500;
-  font-size: 0.9rem; /* Slightly smaller font for actions */
-  transition: background-color 0.2s ease, color 0.2s ease;
+  border-radius: 50%; /* Make buttons circular */
+  font-weight: 500; /* Retained from previous, might not be needed for icon-only */
+  /* font-size is removed here, will be controlled by icon-placeholder directly or inherited */
+  transition: background-color 0.2s ease;
 }
 
 .action-btn:hover {
@@ -104,8 +107,10 @@ body.dark-theme .post-image-placeholder {
 }
 
 .icon-placeholder {
-  font-weight: bold; /* Make placeholder visually distinct */
-  color: var(--primary-color); /* Green icon placeholder */
+  font-weight: bold;
+  color: var(--primary-color);
+  font-size: 1.25rem; /* Increased font size for icon-only button */
+  line-height: 1; /* Ensure icon is vertically centered if it has intrinsic line height */
   /* In a real app, this would be an SVG icon, styled accordingly */
 }
 
