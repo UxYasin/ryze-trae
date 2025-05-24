@@ -64,30 +64,69 @@ body.dark-theme .post-image-placeholder {
 
 
 .post-actions {
+  display: flex;
+  justify-content: space-around; /* Distribute items evenly */
+  align-items: center;
+  padding: 8px 0; /* Add some padding above/below actions */
   margin-bottom: 10px;
+  border-top: 1px solid var(--secondary-color); /* Optional: separator line */
+  border-bottom: 1px solid var(--secondary-color); /* Optional: separator line */
 }
 
-.post-actions button {
-  padding: 8px 12px;
-  border: 1px solid var(--primary-color); /* Uses theme variable */
+.action-item {
+  display: flex;
+  flex-direction: column; /* Stack button and counter vertically */
+  align-items: center;
+  gap: 4px; /* Space between button and counter */
+}
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between icon placeholder and text */
+  padding: 6px 10px; /* Adjust padding for new structure */
+  border: none; /* Remove default border, rely on text/icon color for visual */
   background-color: transparent;
-  color: var(--primary-color); /* Uses theme variable */
+  color: var(--primary-color); /* Green text */
   cursor: pointer;
   border-radius: 4px;
-  margin-right: 8px;
   font-weight: 500;
+  font-size: 0.9rem; /* Slightly smaller font for actions */
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
-.post-actions button:hover {
-  background-color: var(--primary-color);
-  color: #fff; /* White text on primary color background */
+.action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.05); /* Subtle background on hover */
 }
 
-.post-actions button:active {
-  background-color: color-mix(in srgb, var(--primary-color) 80%, black); /* Darken primary color */
-  border-color: color-mix(in srgb, var(--primary-color) 80%, black);
+.action-btn:active {
+  background-color: rgba(0, 0, 0, 0.1); /* Slightly more pronounced on active */
 }
+
+.icon-placeholder {
+  font-weight: bold; /* Make placeholder visually distinct */
+  color: var(--primary-color); /* Green icon placeholder */
+  /* In a real app, this would be an SVG icon, styled accordingly */
+}
+
+/* Style for the 'Like' button when it's in the 'liked' state */
+.action-btn.like-btn.liked {
+  /* Example: Make the text or icon bolder or a different shade of green */
+  font-weight: bold; 
+  /* If using actual icons, you might change fill color here */
+}
+.action-btn.like-btn.liked .icon-placeholder {
+  color: darkred; /* Example: Change heart icon color to red when liked */
+}
+
+.action-counter {
+  font-size: 0.8rem; /* Smaller font for counters */
+  color: #555; /* Neutral color for counters */
+}
+body.dark-theme .action-counter {
+  color: #bbb; /* Lighter counter text for dark theme */
+}
+
 
 .post-caption {
   font-size: 0.9rem;
